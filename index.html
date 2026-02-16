@@ -11,11 +11,29 @@
     <nav class="nav">
         <div class="container">
             <h1 class="nav__brand">Theme Guide</h1>
-            <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
-                <span class="nav__toggle-line"></span>
-                <span class="nav__toggle-line"></span>
-                <span class="nav__toggle-line"></span>
-            </button>
+            <div class="nav__controls">
+                <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <svg class="theme-toggle__icon theme-toggle__icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="theme-toggle__icon theme-toggle__icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                </button>
+            </div>
             <ul class="nav__menu">
                 <li><a href="#colors" class="nav__link">Colors</a></li>
                 <li><a href="#typography" class="nav__link">Typography</a></li>
@@ -81,35 +99,35 @@
 
             <h3 class="subsection__title">Neutral Colors</h3>
             <div class="neutral-grid">
-                <div class="neutral-card" style="background: var(--neutral-50)">
+                <div class="neutral-card neutral-card--50">
                     <span class="neutral-card__label">50</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-100)">
+                <div class="neutral-card neutral-card--100">
                     <span class="neutral-card__label">100</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-200)">
+                <div class="neutral-card neutral-card--200">
                     <span class="neutral-card__label">200</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-300)">
+                <div class="neutral-card neutral-card--300">
                     <span class="neutral-card__label">300</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-400)">
+                <div class="neutral-card neutral-card--400">
                     <span class="neutral-card__label">400</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-500)">
-                    <span class="neutral-card__label" style="color: white">500</span>
+                <div class="neutral-card neutral-card--500">
+                    <span class="neutral-card__label">500</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-600)">
-                    <span class="neutral-card__label" style="color: white">600</span>
+                <div class="neutral-card neutral-card--600">
+                    <span class="neutral-card__label">600</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-700)">
-                    <span class="neutral-card__label" style="color: white">700</span>
+                <div class="neutral-card neutral-card--700">
+                    <span class="neutral-card__label">700</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-800)">
-                    <span class="neutral-card__label" style="color: white">800</span>
+                <div class="neutral-card neutral-card--800">
+                    <span class="neutral-card__label">800</span>
                 </div>
-                <div class="neutral-card" style="background: var(--neutral-900)">
-                    <span class="neutral-card__label" style="color: white">900</span>
+                <div class="neutral-card neutral-card--900">
+                    <span class="neutral-card__label">900</span>
                 </div>
             </div>
         </div>
