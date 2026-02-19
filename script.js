@@ -1,7 +1,7 @@
 // Theme Guide Interactive Features
 // Performance-optimized JavaScript
 
-(function() {
+(function () {
   'use strict';
 
   // ============================================
@@ -10,20 +10,20 @@
   const initThemeToggle = () => {
     const themeToggle = document.querySelector('.theme-toggle');
     const html = document.documentElement;
-    
+
     // Check for saved theme preference or default to light mode
     const currentTheme = localStorage.getItem('theme') || 'light';
     html.setAttribute('data-theme', currentTheme);
-    
+
     if (!themeToggle) return;
-    
+
     themeToggle.addEventListener('click', () => {
       const currentTheme = html.getAttribute('data-theme');
       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      
+
       html.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
-      
+
       // Show toast notification
       showToast(`${newTheme === 'dark' ? '🌙 Dark' : '☀️ Light'} mode activated`);
     });
@@ -37,21 +37,21 @@
     const navMenu = document.querySelector('.nav__menu');
     const navLinks = document.querySelectorAll('.nav__link');
     const body = document.body;
-    
+
     if (!navToggle) return;
-    
+
     const closeMenu = () => {
       navMenu.classList.remove('active');
       body.classList.remove('menu-open');
       navToggle.setAttribute('aria-expanded', 'false');
     };
-    
+
     const openMenu = () => {
       navMenu.classList.add('active');
       body.classList.add('menu-open');
       navToggle.setAttribute('aria-expanded', 'true');
     };
-    
+
     navToggle.addEventListener('click', () => {
       const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
       if (isExpanded) {
@@ -60,23 +60,23 @@
         openMenu();
       }
     });
-    
+
     // Close menu when clicking a link
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         closeMenu();
       });
     });
-    
+
     // Close menu when clicking overlay
     body.addEventListener('click', (e) => {
-      if (body.classList.contains('menu-open') && 
-          !navMenu.contains(e.target) && 
-          !navToggle.contains(e.target)) {
+      if (body.classList.contains('menu-open') &&
+        !navMenu.contains(e.target) &&
+        !navToggle.contains(e.target)) {
         closeMenu();
       }
     });
-    
+
     // Close menu on escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && body.classList.contains('menu-open')) {
@@ -90,22 +90,22 @@
   // ============================================
   const initSmoothScroll = () => {
     const navLinks = document.querySelectorAll('.nav__link');
-    
+
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = link.getAttribute('href');
         const targetSection = document.querySelector(targetId);
-        
+
         if (targetSection) {
           const navHeight = document.querySelector('.nav').offsetHeight;
           const targetPosition = targetSection.offsetTop - navHeight - 20;
-          
+
           window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
           });
-          
+
           // Update active link
           navLinks.forEach(l => l.classList.remove('active'));
           link.classList.add('active');
@@ -120,7 +120,7 @@
   const initScrollAnimations = () => {
     // Check if user prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
+
     if (prefersReducedMotion) return;
 
     const observerOptions = {
@@ -152,12 +152,12 @@
   // ============================================
   const initColorCopy = () => {
     const colorCards = document.querySelectorAll('.color-card');
-    
+
     colorCards.forEach(card => {
       card.style.cursor = 'pointer';
       card.addEventListener('click', () => {
         const colorValue = card.querySelector('.color-card__value').textContent;
-        
+
         // Copy to clipboard
         navigator.clipboard.writeText(colorValue).then(() => {
           // Show feedback
@@ -183,7 +183,7 @@
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
-    
+
     // Add styles
     Object.assign(toast.style, {
       position: 'fixed',
@@ -223,17 +223,17 @@
   // ============================================
   const initAnimationDemos = () => {
     const animationBoxes = document.querySelectorAll('.animation-box');
-    
+
     animationBoxes.forEach(box => {
-      box.addEventListener('click', function() {
+      box.addEventListener('click', function () {
         // Remove and re-add animation class to restart
         const parent = this.parentElement;
         const clone = this.cloneNode(true);
         parent.replaceChild(clone, this);
-        
+
         // Re-attach event listener to the new element
         clone.addEventListener('click', arguments.callee);
-        
+
         // Add click feedback
         clone.style.transform = 'scale(0.95)';
         setTimeout(() => {
@@ -277,13 +277,13 @@
   // ============================================
   const initButtonRipple = () => {
     const buttons = document.querySelectorAll('.btn');
-    
+
     buttons.forEach(button => {
-      button.addEventListener('click', function(e) {
+      button.addEventListener('click', function (e) {
         const rect = this.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         // Create ripple element
         const ripple = document.createElement('span');
         ripple.style.cssText = `
@@ -298,13 +298,13 @@
           animation: ripple 0.6s ease-out;
           pointer-events: none;
         `;
-        
+
         this.appendChild(ripple);
-        
+
         setTimeout(() => ripple.remove(), 600);
       });
     });
-    
+
     // Add ripple animation to document
     if (!document.querySelector('#ripple-animation')) {
       const style = document.createElement('style');
@@ -330,15 +330,81 @@
       if ('performance' in window) {
         const perfData = window.performance.timing;
         const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-        
+
         console.log(`%c⚡ Page Load Time: ${pageLoadTime}ms`, 'color: #10b981; font-weight: bold;');
-        
+
         // Log to console if load time is slow
         if (pageLoadTime > 3000) {
           console.warn('Page load time is slower than expected');
         }
       }
     });
+  };
+
+  // ============================================
+  // DIALOG / MODAL
+  // ============================================
+  const initDialog = () => {
+    // Open buttons
+    document.querySelectorAll('[data-dialog-open]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-dialog-open');
+        const backdrop = document.getElementById(id);
+        if (!backdrop) return;
+        backdrop.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+
+        // Focus first focusable element inside dialog
+        const focusable = backdrop.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length) focusable[0].focus();
+
+        // Trap focus within dialog
+        backdrop.addEventListener('keydown', trapFocus);
+      });
+    });
+
+    // Close buttons (data-dialog-close inside any dialog)
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-dialog-close]')) {
+        const backdrop = e.target.closest('.dialog-backdrop');
+        if (backdrop) closeDialog(backdrop);
+      }
+      // Backdrop click
+      if (e.target.classList.contains('dialog-backdrop') && e.target.classList.contains('is-open')) {
+        closeDialog(e.target);
+      }
+    });
+
+    // Escape key closes any open dialog
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const open = document.querySelector('.dialog-backdrop.is-open');
+        if (open) closeDialog(open);
+      }
+    });
+
+    const closeDialog = (backdrop) => {
+      backdrop.classList.remove('is-open');
+      document.body.style.overflow = '';
+      backdrop.removeEventListener('keydown', trapFocus);
+    };
+
+    const trapFocus = (e) => {
+      if (e.key !== 'Tab') return;
+      const backdrop = e.currentTarget;
+      const focusable = Array.from(backdrop.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey ? document.activeElement === first : document.activeElement === last) {
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+      }
+    };
   };
 
   // ============================================
@@ -358,7 +424,8 @@
     initThemeToggle();
     initMobileMenu();
     initSmoothScroll();
-    
+    initDialog();
+
     // Non-critical features - initialize when browser is idle
     initWhenIdle(() => {
       initScrollAnimations();
